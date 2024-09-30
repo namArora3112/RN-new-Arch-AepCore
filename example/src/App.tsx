@@ -1,12 +1,23 @@
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-aep-core';
+import { multiply, extensionVersion } from 'react-native-aep-core';
 
-const result = multiply(3, 7);
+const result = multiply(2, 7);
 
 export default function App() {
+
+  const [version, setVersion] = useState('');
+
+  useEffect(() => {
+    // Call the native extensionVersion method
+    extensionVersion().then((ver) => {
+      setVersion(ver);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Result: {result} {version}</Text>
     </View>
   );
 }
